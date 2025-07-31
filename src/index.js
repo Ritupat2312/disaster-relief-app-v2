@@ -1,15 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App'; // Import the main App component
 
+// Note: This file no longer imports any CSS files to prevent the build error.
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to my Disaster Relief Application!</h1>
-        <p>This is my custom content.</p>
-      </header>
-    </div>
-  );
-}
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export default App;
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
