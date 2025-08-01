@@ -1,7 +1,9 @@
-/* src/index.css */
+/* Tailwind Base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fade-in Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -9,14 +11,34 @@
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
+
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Global Styles */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f9fafb; /* light gray bg */
 }
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Global Transition for UI Elements */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Reusable Card Style */
+.card {
+  @apply bg-white rounded-lg shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-200;
 }
