@@ -1,104 +1,59 @@
 // src/pages/Home.jsx
 import React from "react";
 import WeatherWidget from "../components/WeatherWidget";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
-      {/* Page Header */}
-      <h3 className="text-3xl font-bold text-blue-700 mb-4 text-left">Disaster Sense AI</h3>
-      <p className="text-lg text-gray-700 mb-8 text-left">AI-powered disaster detection & relief coordination.</p>
-      <h2 className="text-4xl font-extrabold text-blue-800 mb-6">
-        Welcome to Disaster Relief – Your Crisis Coordination Companion
-      </h2>
-      <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-        Disaster Relief is a cutting-edge coordination platform designed to bridge people in distress with those eager
-        to help—whether online or offline. Our goal is to enable seamless communication and aid delivery even when
-        traditional networks fail.
-      </p>
+    <div className="max-w-7xl mx-auto p-6">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-xl p-8 shadow-lg text-center">
+        <h1 className="text-4xl font-extrabold mb-4">
+          Welcome to DisasterSenseAI
+        </h1>
+        <p className="text-lg max-w-2xl mx-auto mb-6">
+          AI-powered disaster sensing and relief coordination. Connecting those
+          in need with volunteers, faster than ever.
+        </p>
+        <div className="flex justify-center gap-4">
+          <Link
+            to="/request-help"
+            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg shadow-md font-semibold transition transform hover:scale-105"
+          >
+            Request Help
+          </Link>
+          <Link
+            to="/offer-help"
+            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-md font-semibold transition transform hover:scale-105"
+          >
+            Offer Help
+          </Link>
+        </div>
+      </section>
 
-      {/* Grid Layout */}
-      <div className="grid md:grid-cols-2 gap-8 mt-10">
-        {/* Coordination & Aid */}
-        <div className="bg-blue-50 p-6 rounded-lg shadow-inner border border-blue-200 flex flex-col justify-between">
-          <div>
-            <h3 className="text-2xl font-bold text-blue-700 mb-4 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7 mr-2 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-              Coordination & Aid
-            </h3>
-            <p className="text-gray-600">
-              Our platform allows victims to quickly request help, and volunteers to efficiently offer assistance. Admins
-              can manage requests, assign tasks, and broadcast emergency alerts.
-            </p>
-            <ul className="list-disc text-left ml-6 mt-4 text-gray-700 space-y-2">
-              <li>Admin alerts and task assignments</li>
-              <li>Location- and skill-based volunteer matching</li>
-              <li>Real-time help request sync via Firebase</li>
-              <li>Volunteer reputation tracking (beta)</li>
-            </ul>
-          </div>
+      {/* Info Section */}
+      <section className="mt-10 grid md:grid-cols-2 gap-6">
+        {/* Coordination Card */}
+        <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
+          <h2 className="text-2xl font-bold text-blue-600 mb-3">
+            Coordination & Aid
+          </h2>
+          <p className="text-gray-700">
+            Quickly request help or offer assistance. Location-based volunteer
+            matching for faster response.
+          </p>
+          <ul className="list-disc list-inside mt-3 text-gray-600">
+            <li>Admin alerts & task assignments</li>
+            <li>Real-time help request sync</li>
+            <li>Volunteer reputation tracking</li>
+          </ul>
         </div>
 
         {/* Weather Widget */}
-        <div className="flex">
+        <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
           <WeatherWidget />
         </div>
-
-        {/* Emergency Offline Connectivity */}
-        <div className="bg-indigo-50 p-6 rounded-lg shadow-inner border border-indigo-200 col-span-full flex flex-col justify-between">
-          <div>
-            <h3 className="text-2xl font-bold text-indigo-700 mb-4 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7 mr-2 text-indigo-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-              Emergency Offline Connectivity
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Even during network outages, communication remains possible through our upcoming companion mobile app.
-            </p>
-            <ul className="list-disc text-left ml-6 text-gray-700 space-y-2">
-              <li>
-                <strong>Offline Mobile Sync:</strong> Data exchange via Bluetooth/Wi-Fi Direct for local mesh networks.
-              </li>
-              <li>
-                <strong>Offline-First Web (Upcoming):</strong> Using service workers & IndexedDB for basic offline data.
-              </li>
-            </ul>
-          </div>
-          <p className="text-sm italic text-gray-500 mt-4 text-center">
-            (Note: Direct Bluetooth/Wi-Fi P2P is typically for native mobile apps.)
-          </p>
-        </div>
-      </div>
-
-      {/* Quote */}
-      <p className="italic text-blue-600 text-2xl mt-12 font-semibold">
-        “Relief is not just an action; it's a connection.”
-      </p>
+      </section>
     </div>
   );
 }
