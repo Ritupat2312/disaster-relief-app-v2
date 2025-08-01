@@ -1,3 +1,4 @@
+// src/components/Dashboard.jsx
 import React, { useEffect, useState } from "react";
 import { db } from "../utils/firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
@@ -10,7 +11,6 @@ const Dashboard = () => {
     const [selected, setSelected] = useState(null);
 
     useEffect(() => {
-        // Firebase real-time listeners for all collections
         const unsubReq = onSnapshot(
             query(collection(db, "helpRequests"), orderBy("createdAt", "desc")),
             (snapshot) => setRequests(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
@@ -26,7 +26,6 @@ const Dashboard = () => {
             (snapshot) => setAlerts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
         );
 
-        // Cleanup function to detach listeners when the component unmounts
         return () => {
             unsubReq();
             unsubOff();
@@ -48,7 +47,6 @@ const Dashboard = () => {
         <div className="max-w-6xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
-            {/* Live Disaster Alerts */}
             <section className="mb-6">
                 <h2 className="text-2xl font-semibold mb-2">⚠ Live Disaster Alerts</h2>
                 {alerts.length === 0 ? (
@@ -64,10 +62,8 @@ const Dashboard = () => {
                 )}
             </section>
 
-            {/* Google Map */}
             <div className="mb-6">
-                {/* The map key is now correctly accessed as a frontend variable */}
-                <LoadScript googleMapsApiKey={process.env.REACT_APP_Maps_API_KEY}>
+                <LoadScript googleMapsApiKey="AIzaSyDWqEXnPxRWWJKxFzbiGeTI9FUqyxpVyKY">
                     <GoogleMap mapContainerStyle={mapContainerStyle} zoom={5} center={defaultCenter}>
                         {requests.map((req) => {
                             const loc = parseLocation(req.location);
@@ -80,7 +76,6 @@ const Dashboard = () => {
                                 />
                             ) : null;
                         })}
-
                         {offers.map((offer) => {
                             const loc = parseLocation(offer.location);
                             return loc ? (
@@ -92,7 +87,6 @@ const Dashboard = () => {
                                 />
                             ) : null;
                         })}
-
                         {selected && (
                             <InfoWindow
                                 position={parseLocation(selected.location)}
@@ -113,7 +107,6 @@ const Dashboard = () => {
                 </LoadScript>
             </div>
 
-            {/* Table View */}
             <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-3">Help Requests</h2>
                 <div className="overflow-x-auto bg-white shadow rounded-lg">
