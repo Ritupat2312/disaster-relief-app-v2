@@ -1,4 +1,5 @@
 // src/components/WeatherWidget.jsx
+// src/components/WeatherWidget.jsx
 import React, { useEffect, useState } from "react";
 import { detectDisaster } from "../utils/disasterAI";
 import { db } from "../utils/firebase";
@@ -21,14 +22,25 @@ const WeatherWidget = () => {
       (pos) => {
         const { latitude, longitude } = pos.coords;
 
+        console.log("Fetching weather for:", latitude, longitude); // Log coordinates
+
         fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
         )
-          .then((res) => res.json())
+          .then((res) => {
+            console.log("API Response Status:", res.status); // Log status code
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+          })
           .then(async (data) => {
+            console.log("API Data received:", data); // Log the full data object
             setWeather(data);
 
             // AI disaster detection
+            // Note: The data structure from OpenWeatherMap is different from Open-Meteo.
+            // You'll need to update detectDisaster() if you had previously changed it.
             const foundAlerts = detectDisaster(data);
             setAlerts(foundAlerts);
 
@@ -41,9 +53,13 @@ const WeatherWidget = () => {
               });
             }
           })
-          .catch(() => setError("Failed to fetch weather data."));
+          .catch((err) => {
+            console.error("Fetch error:", err); // Log the full error object
+            setError("Failed to fetch weather data.");
+          });
       },
-      () => {
+      (err) => {
+        console.error("Geolocation error:", err); // Log geolocation errors
         setError("Location permission denied.");
       }
     );
